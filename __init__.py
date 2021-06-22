@@ -417,13 +417,6 @@ class RigUtils(object):
 
         cls.lock_modeling()
 
-    @classmethod
-    def reload(cls):
-        import rigMenu
-        reload(rigMenu)
-        rigMenu.RigMainMenu.display()
-        cmds.warning('Menu Reloaded')
-
 
 class MainMenu(object):
     label = 'Default'
@@ -506,9 +499,6 @@ class RigMainMenu(MainMenu):
             ('Global Local', RigUtils.create_global_local_ctrls_from_selection, ('Ctrl+Alt+C',)),
             ('Global Local (bottom)', partial(RigUtils.create_global_local_ctrls_from_selection, bottom=True), ('Ctrl+Alt+V',)),
             ('Lock Rig', RigUtils.lock_rig, None),
-
-            ('', None, None),
-            ('Reload', RigUtils.reload, None)
         )
         for label, func, shortcuts in data:
             act = QtWidgets.QAction(label, self.widget)
