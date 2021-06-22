@@ -410,12 +410,33 @@ class RigUtils(object):
 
     @classmethod
     def lock_rig(cls):
+        cls.lock_all_vis_attrs_on_ctrls()
+        cls.lock_modeling()
+        cls.remove_all_ng_skin_tools2()
+        cls.optimize_skin_clusters()
+
+    @classmethod
+    def lock_all_vis_attrs_on_ctrls(cls):
         from xi.project_utils.utils import mayaUtils
 
         for ctrl in mayaUtils.Ctrl.get_all():
             cmds.setAttr('{0}.{1}'.format(ctrl, 'v'), lock=True, keyable=False)
 
-        cls.lock_modeling()
+    @classmethod
+    def optimize_skin_clusters(cls):
+        for mesh in cmds.ls(type='mesh'):
+            if 'skinCluster' in [cmds.objectType(node) for node in cmds.listHistory(mesh) or list()]:
+                print mesh
+                cmds.select(mesh)
+                try:
+                    mel.eval('removeUnusedInfluences;')
+                except:
+                    pass
+
+    @classmethod
+    def remove_all_ng_skin_tools2(cls):
+        from ngSkinTools2.operations import removeLayerData
+        removeLayerData.removeCustomNodes()
 
 
 class MainMenu(object):
