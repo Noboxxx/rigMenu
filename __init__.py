@@ -144,7 +144,7 @@ class RigUtils(object):
 
     @classmethod
     @chunk
-    def toggle_joints_visibility_xilam(cls):
+    def toggle_joints_visibility(cls):
         draw_style_str = 'drawStyle'
         joints = cmds.ls('*_jnt', type='joint') or list()
 
@@ -408,6 +408,22 @@ class RigUtils(object):
         cmds.setAttr(geo_grp + '.overrideEnabled', True)
         cmds.setAttr(geo_grp + '.overrideDisplayType', 2)
 
+    @classmethod
+    def lock_rig(cls):
+        from xi.project_utils.utils import mayaUtils
+
+        for ctrl in mayaUtils.Ctrl.get_all():
+            cmds.setAttr('{0}.{1}'.format(ctrl, 'v'), lock=True, keyable=False)
+
+        cls.lock_modeling()
+
+    @classmethod
+    def reload(cls):
+        import rigMenu
+        reload(rigMenu)
+        rigMenu.RigMainMenu.display()
+        cmds.warning('Menu Reloaded')
+
 
 class MainMenu(object):
     label = 'Default'
@@ -465,7 +481,7 @@ class RigMainMenu(MainMenu):
             ('Scale Joints Up', RigUtils.scale_joints_up, ('Ctrl++',)),
             ('Scale Joints Down', RigUtils.scale_joints_down, ('Ctrl+-',)),
             ('Toggle Ctrls Visibility', RigUtils.toggle_ctrls_visibility, ('7',)),
-            ('Toggle Joints Visibility', RigUtils.toggle_joints_visibility_xilam, ('9',)),
+            ('Toggle Joints Visibility', RigUtils.toggle_joints_visibility, ('9',)),
             ('Toggle Wireframe Visibility', RigUtils.toggle_wireframe, ('8',)),
 
             ('Windows', None, None),
@@ -480,7 +496,7 @@ class RigMainMenu(MainMenu):
             ('ngSkinTools2', RigUtils.ng_skin_tools2, ('Shift+G',)),
             ('bsControls', RigUtils.bs_controls, ('Shift+O',)),
 
-            ('Xilam', None, None),
+            ('X', None, None),
             ('Reset Transforms', RigUtils.reset_transforms, ('Ctrl+T',)),
             ('Select Ctrls', RigUtils.select_ctrls, ('Ctrl+Shift+C',)),
             ('Check ControlSet', RigUtils.compare_control_set_to_all_ctrls, None),
@@ -489,6 +505,10 @@ class RigMainMenu(MainMenu):
             ('Lock Geo', RigUtils.lock_modeling, None),
             ('Global Local', RigUtils.create_global_local_ctrls_from_selection, ('Ctrl+Alt+C',)),
             ('Global Local (bottom)', partial(RigUtils.create_global_local_ctrls_from_selection, bottom=True), ('Ctrl+Alt+V',)),
+            ('Lock Rig', RigUtils.lock_rig, None),
+
+            ('', None, None),
+            ('Reload', RigUtils.reload, None)
         )
         for label, func, shortcuts in data:
             act = QtWidgets.QAction(label, self.widget)
@@ -500,7 +520,3 @@ class RigMainMenu(MainMenu):
                 act.setSeparator(True)
 
             self.addAction(act)
-
-
-# RigMainMenu.display()
-# print('RigMainMenu.display()')
