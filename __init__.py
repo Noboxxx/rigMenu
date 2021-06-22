@@ -414,6 +414,7 @@ class RigUtils(object):
         cls.lock_modeling()
         cls.remove_all_ng_skin_tools2()
         cls.optimize_skin_clusters()
+        cls.delete_unused_nodes()
 
     @classmethod
     def lock_all_vis_attrs_on_ctrls(cls):
@@ -437,6 +438,10 @@ class RigUtils(object):
     def remove_all_ng_skin_tools2(cls):
         from ngSkinTools2.operations import removeLayerData
         removeLayerData.removeCustomNodes()
+
+    @classmethod
+    def delete_unused_nodes(cls):
+        mel.eval('MLdeleteUnused;')
 
 
 class MainMenu(object):
