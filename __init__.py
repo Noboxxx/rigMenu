@@ -443,6 +443,11 @@ class RigUtils(object):
     def delete_unused_nodes(cls):
         mel.eval('MLdeleteUnused;')
 
+    @classmethod
+    def open_ctrl_shaper(cls):
+        from ctrlShaper import ctrlShaperUi
+        ctrlShaperUi.CtrlShaperUi().show()
+
 
 class MainMenu(object):
     label = 'Default'
