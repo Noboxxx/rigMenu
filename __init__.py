@@ -519,6 +519,7 @@ class RigMainMenu(MainMenu):
             ('Plug-ins', None, None),
             ('ngSkinTools2', RigUtils.ng_skin_tools2, ('Shift+G',)),
             ('bsControls', RigUtils.bs_controls, ('Shift+O',)),
+            ('ctrlShaper', RigUtils.open_ctrl_shaper, None),
 
             ('X', None, None),
             ('Reset Transforms', RigUtils.reset_transforms, ('Ctrl+T',)),
