@@ -448,6 +448,17 @@ class RigUtils(object):
         from ctrlShaper import ctrlShaperUi
         ctrlShaperUi.CtrlShaperUi().show()
 
+    @classmethod
+    def reset_grp(cls):
+        for node in cmds.ls(sl=True) or list():
+            node_parent = cmds.listRelatives(node, parent=True)
+            rst = cmds.group(name=node + '_rst#', empty=True)
+            node_matrix = cmds.xform(node, q=True, matrix=True)
+            cmds.xform(rst, matrix=node_matrix)
+            cmds.parent(node, rst)
+            if node_parent:
+                cmds.parent(rst, node_parent[0])
+
 
 class MainMenu(object):
     label = 'Default'
@@ -496,6 +507,7 @@ class RigMainMenu(MainMenu):
     def fill_up_menu(self):
         data = (
             ('Locator on Gizmo', RigUtils.locator_on_gizmo, ('Ctrl+L',)),
+            ('Reset Group', RigUtils.reset_grp, ('Ctrl+Alt+G',)),
 
             ('Skin', None, None),
             ('Select Skinned Joints', RigUtils.select_skinned_joints, None),
