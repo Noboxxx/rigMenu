@@ -142,27 +142,27 @@ class RigUtils(object):
             except:
                 continue
 
-    @classmethod
-    @chunk
-    def toggle_joints_visibility(cls):
-        draw_style_str = 'drawStyle'
-        joints = cmds.ls('*_jnt', type='joint') or list()
-
-        if joints:
-            reversed_state = 2 if cmds.getAttr("{0}.{1}".format(joints[0], draw_style_str)) == 0 else 0
-            for joint in joints:
-                cmds.setAttr('{0}.{1}'.format(joint, draw_style_str), reversed_state)
-
-
-            for index in range(10):
-                panel = 'modelPanel{0}'.format(index)
-                try:
-                    if reversed_state == 2:
-                        cmds.modelEditor(panel, e=True, jx=False, j=False)
-                    else:
-                        cmds.modelEditor(panel, e=True, jx=True, j=True)
-                except:
-                    continue
+    # @classmethod
+    # @chunk
+    # def toggle_joints_visibility(cls):
+    #     draw_style_str = 'drawStyle'
+    #     joints = cmds.ls('*_jnt', type='joint') or list()
+    #
+    #     if joints:
+    #         reversed_state = 2 if cmds.getAttr("{0}.{1}".format(joints[0], draw_style_str)) == 0 else 0
+    #         for joint in joints:
+    #             cmds.setAttr('{0}.{1}'.format(joint, draw_style_str), reversed_state)
+    #
+    #
+    #         for index in range(10):
+    #             panel = 'modelPanel{0}'.format(index)
+    #             try:
+    #                 if reversed_state == 2:
+    #                     cmds.modelEditor(panel, e=True, jx=False, j=False)
+    #                 else:
+    #                     cmds.modelEditor(panel, e=True, jx=True, j=True)
+    #             except:
+    #                 continue
 
     @classmethod
     @chunk
