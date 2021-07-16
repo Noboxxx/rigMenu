@@ -554,3 +554,7 @@ class RigMainMenu(MainMenu):
                 act.setSeparator(True)
 
             self.addAction(act)
+
+
+def display():
+    RigMainMenu.display()
