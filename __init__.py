@@ -449,6 +449,11 @@ class RigUtils(object):
         ctrlShaperUi.CtrlShaperUi().show()
 
     @classmethod
+    def openAnimBot(cls):
+        import animBot
+        animBot.launch()
+
+    @classmethod
     def reset_grp(cls):
         for node in cmds.ls(sl=True) or list():
             node_parent = cmds.listRelatives(node, parent=True)
@@ -532,6 +537,7 @@ class RigMainMenu(MainMenu):
             ('ngSkinTools2', RigUtils.ng_skin_tools2, ('Shift+G',)),
             ('bsControls', RigUtils.bs_controls, ('Shift+O',)),
             ('ctrlShaper', RigUtils.open_ctrl_shaper, None),
+            ('animBot', RigUtils.openAnimBot, None),
 
             ('X', None, None),
             ('Reset Transforms', RigUtils.reset_transforms, ('Ctrl+T',)),
