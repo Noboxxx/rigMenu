@@ -259,6 +259,7 @@ class RigUtils(object):
         local_joint_name = '{0}_local_C{1}_jnt'.format(id_, index)
         cmds.select(clear=True)
         local_joint = cmds.joint(name=local_joint_name)
+        cmds.setAttr('{}.v'.format(local_joint), False)
 
         cmds.parent(local_joint, local_ctrl)
         cmds.parent(local_ctrl, global_ctrl)
