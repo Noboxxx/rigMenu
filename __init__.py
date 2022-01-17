@@ -2,7 +2,7 @@ from maya import cmds, mel, OpenMayaUI
 from PySide2 import QtWidgets
 from shiboken2 import wrapInstance
 from functools import partial
-
+from .utils import resetSelectedMayaCtrlsTransforms
 
 class Chunk(object):
 
@@ -541,7 +541,8 @@ class RigMainMenu(MainMenu):
             ('animBot', RigUtils.openAnimBot, None),
 
             ('X', None, None),
-            ('Reset Transforms', RigUtils.reset_transforms, ('Ctrl+T',)),
+            # ('Reset Transforms', RigUtils.reset_transforms, ('Ctrl+T',)),
+            ('Reset Transforms', resetSelectedMayaCtrlsTransforms, ('Ctrl+T',)),
             ('Select Ctrls', RigUtils.select_ctrls, ('Ctrl+Shift+C',)),
             ('Check ControlSet', RigUtils.compare_control_set_to_all_ctrls, None),
             ('Create Mesh Attribute', RigUtils.create_mesh_attribute, ('ctrl+M',)),
