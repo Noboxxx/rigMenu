@@ -2,7 +2,7 @@ from maya import cmds, mel, OpenMayaUI
 from PySide2 import QtWidgets
 from shiboken2 import wrapInstance
 from functools import partial
-from .utils import resetSelectedMayaCtrlsTransforms
+from .utils import resetSelectedMayaCtrlsTransforms, toggleJointsLocalAxis
 
 class Chunk(object):
 
@@ -525,6 +525,7 @@ class RigMainMenu(MainMenu):
             ('Toggle Ctrls Visibility', RigUtils.toggle_ctrls_visibility, ('7',)),
             ('Toggle Joints Visibility', RigUtils.toggle_joints_visibility, ('9',)),
             ('Toggle Wireframe Visibility', RigUtils.toggle_wireframe, ('8',)),
+            ('Toggle Joints Local Axis', toggleJointsLocalAxis, ('*',)),
 
             ('Windows', None, None),
             ('Node Editor', RigUtils.node_editor, ('Shift+N',)),

@@ -37,3 +37,15 @@ def resetSelectedMayaCtrlsTransforms():
                 cmds.setAttr(plug, defaultValue)
             except RuntimeError:
                 pass
+
+
+def toggleJointsLocalAxis():
+    joints = cmds.ls(sl=True, type='joint') or cmds.ls(type='joint')
+
+    if not joints:
+        cmds.warning('No joints found.')
+
+    currentState = cmds.getAttr('{}.displayLocalAxis'.format(joints[0]))
+
+    for joint in joints:
+        cmds.setAttr('{}.displayLocalAxis'.format(joint), not currentState)
